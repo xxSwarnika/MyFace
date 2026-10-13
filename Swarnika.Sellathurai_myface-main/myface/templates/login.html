@@ -1,0 +1,32 @@
+{% extends "_layout.html" %}
+{% from "field.html" import render_field %}
+
+<!-- The page title -->
+{% block title %}Log in to MyFace™{% endblock %}
+
+<!-- The page content -->
+{% block content %}
+<h1>Log in to MyFace™</h1>
+<div class="login">
+
+<!------ Password login-->
+<form class="login" action="{{ url_for('login')}}" method="post" novalidate>
+    <fieldset>
+    <legend>Password login</legend>
+        {{ render_field(form.username, autocomplete="username") }}
+        {{ render_field(form.password, autocomplete="current-password") }}
+        {{ form.login }}
+    </fieldset>
+    {{ form.csrf_token }}
+    {{ form.next }}
+</form>
+<div class="or">or</div>
+
+<!-----OIDC login -->
+<p>
+    <a class="btwn oidc" href="{{ url_for('login_gitlab') }}">
+        Log in with git.app.uib.no
+    </a>
+</p>
+</div>
+{% endblock %}

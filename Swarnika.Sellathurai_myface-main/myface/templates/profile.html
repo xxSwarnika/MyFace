@@ -1,0 +1,29 @@
+{% extends "_layout.html" %}
+{% from "field.html" import render_field %}
+
+<!-- The page title -->
+{% block title %}Edit profile{% endblock %}
+
+<!-- The page content -->
+{% block content %}
+        <form class="user" novalidate action="" method="post">
+                {{ form.csrf_token }}
+
+                {{ render_field(form.name) }}
+                {{ render_field(form.username) }}
+                {{ render_field(form.password, autocomplete="new-password") }}
+                {{ render_field(form.password_again, autocomplete="new-password") }}
+                {{ render_field(form.birthdate) }}
+                
+                <!-- TODO: check that the code below is safe -->
+                {{ render_field(form.color, '<div class="color-sample" style="background-color:' + form.color.data + '"></div>') }}
+                 
+                {{ render_field(form.picture_url) }}
+                {% if form.picture_url.data %}
+                    <img src="{{form.picture_url.data|safe}}" alt="{{form.username.data}}'s profile picture">
+                {% endif %}
+                {{ render_field(form.about) }}
+            <p>
+            {{ form.save }}
+        </form>
+{% endblock %}

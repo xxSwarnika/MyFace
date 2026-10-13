@@ -1,0 +1,892 @@
+@use "sass:color";
+
+* {
+    box-sizing: border-box;
+}
+
+$color-light: #F6F3E9;
+$color-1: #E95C20;
+$color-2: #E9C120;
+$color-3: #cf3c3a;
+$color-dark: #cdcdcd;
+$color-4: #5cc920;
+$color-failure: $color-1;
+$color-incomplete: $color-2;
+
+:root {
+    --resizer-bg: #{color.scale($color-light, $lightness:-10%)};
+    --resizer-bg-hover: #{color.scale($color-1, $lightness:+30%)};
+
+    --error-fg: var(--color-3);
+    --warn-fg: var(--color-2);
+
+    --frame-text: #333;
+    --frame-text-faded: #666;
+    --frame-border-focused: #{color.scale($color-2, $lightness:+20%)};
+    --frame-header: #{color.scale($color-light, $lightness:+20%)};
+    --frame-header-focused: #{color.scale($color-2, $lightness:+40%)};
+    --frame-tab: #{color.scale($color-light, $lightness:-10%)};
+    --frame-tab-selected: #{color.scale($color-light, $lightness:+10%)};
+    --frame-tab-focused: #{color.scale($color-2, $lightness:+20%)};
+    --frame-tab-focused-selected: #{color.scale($color-2, $lightness:+60%)};
+}
+
+
+:root {
+    --color-1: #{$color-1};
+    --color-1-dark: #{color.scale($color-1, $lightness:-60%)};
+    --color-1-light: #{color.scale($color-1, $lightness:+40%)};
+    --color-1-light-desat: #{color.scale($color-1, $lightness:+40%, $saturation:-40%)};
+    --color-2: #{$color-2}; //--color-2b: #Ecbf36;
+    --color-2-light: #{color.scale($color-2, $lightness:+40%)};
+    --color-2-light-desat: #{color.scale($color-2, $lightness:+40%, $saturation:-40%)};
+    --color-2-desat: #{color.scale($color-2, $saturation:-40%)};
+    --color-2-dark: #{color.scale($color-2, $lightness:-10%)};
+    --color-3: #{$color-3};
+    --color-3-light: #{color.scale($color-3, $lightness:+40%)};
+    --color-3-light-desat: #{color.scale($color-3, $lightness:+40%, $saturation:-40%)};
+    --color-4: #{color.scale($color-4, $lightness:0%)};
+    --color-4-light: #{color.change($color-4, $lightness:75%)};
+    --color-5: #{color.change(color.adjust($color-4, $hue:120deg))};
+    --color-5-light: #{color.change(color.adjust($color-4, $hue:120deg), $lightness:75%)};
+
+    --text-border: var(--color-2-dark);
+    --text-fg: #001;
+    --text-bg: #{color.change($color-2, $lightness:90%)};
+    --text-bg-2: #{color.change($color-2, $lightness:95%)};
+    --text-bg-2-border: #{color.change($color-2, $lightness:75%)};
+    --text-fg-reverse: var(--text-bg);
+    --text-bg-reverse: var(--text-fg);
+    --text-fg-link: hsl(240, 100%, 30%);
+    --text-fg-link-hover: hsl(0, 100%, 30%);
+    --text-fg-visited: hsl(240, 100%, 30%);
+    --text-fg-link-reverse: hsl(240, 100%, 80%);
+    --text-fg-link-hover-reverse: hsl(0, 100%, 80%);
+    --text-fg-visited-reverse: hsl(240, 100%, 80%);
+    --side-bg: #{color.scale(color.complement($color-2), $lightness:+90%)};
+    --side-bg-reverse: #{color.scale(color.complement($color-2), $lightness:-90%)};
+
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-1: #{color.change($color-1, $lightness:30%)};
+        --color-1-light: #{color.change($color-1, $lightness:20%)};
+        --color-1-dark: #{color.change($color-1, $lightness:80%)};
+        --color-2: #{color.change($color-2, $lightness:30%)};
+        --color-2-light: #{color.change($color-2, $lightness:15%)};
+        --color-2-light-desat: #{color.change($color-2, $lightness:15%, $saturation:60%)};
+        --color-2-dark: #{color.change($color-2, $lightness:80%)};
+        --color-2-desat: #{color.change($color-2, $lightness:30%, $saturation:60%)};
+        --color-3: #{color.change($color-3, $lightness:30%)};
+        --color-3-light:#{color.change($color-3, $lightness:20%)};
+        --color-3-light-desat: #{color.change($color-3, $lightness:20%, $saturation:60%)};
+        --color-4: #{color.change($color-4, $lightness:30%)};
+        --color-4-light: #{color.change($color-4, $lightness:20%)};
+        --color-5: #{color.change(color.adjust($color-4, $hue:120deg))};
+        --color-5-light: #{color.change(color.adjust($color-4, $hue:120deg), $lightness:20%)};
+
+        --text-border: var(--color-2-dark);
+        --text-fg: #{color.change($color-2, $lightness:90%)};
+        --text-bg: #001;
+        --text-bg-2: #{color.change(color.complement($color-2), $lightness:8%)};
+        --text-bg-2-border: #{color.change($color-2, $lightness:20%)};
+        --text-fg-link: hsl(240, 100%, 90%);
+        --text-fg-link-hover: hsl(0, 100%, 90%);
+        --text-fg-visited: hsl(240, 100%, 90%);
+        --text-fg-link-reverse: hsl(240, 100%, 30%);
+        --text-fg-link-hover-reverse: hsl(0, 100%, 30%);
+        --text-fg-visited-reverse: hsl(240, 100%, 30%);
+        --side-bg: #{color.scale(color.complement($color-2), $lightness:-90%)};
+        --side-bg-reverse: #{color.scale(color.complement($color-2), $lightness:+90%)};
+    }
+}
+
+body {
+    margin: 0;
+    color: var(--text-fg);
+    background-color: var(--text-bg);
+}
+
+label {
+    justify-self: end;
+}
+
+.users {
+    padding: 0.2rem;
+    margin: 0.5rem 1rem;
+}
+
+.user {
+    border: 1px solid var(--text-border);
+    border-radius: 5px;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    position: relative;
+    min-height: calc(4rem + 2rem);
+    display: flex;
+    flex-direction: row;
+
+    &>ul {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+form.user {
+    flex-direction: column;
+}
+
+form label {
+    min-width: 15rem;
+    text-align: right;
+    display: inline-block;
+    margin: 0.25rem;
+}
+
+form label::after {
+    content: ': ';
+}
+
+textarea,
+input {
+    color: var(--text-fg);
+    background-color: var(--text-bg-2);
+    border-radius: 5px;
+    border-color: var(--color-2-light);
+}
+
+kbd {
+    border: .1em outset var(--text-fg);
+    border-radius: 5px;
+    padding: .1em;
+}
+
+.user.me .username::after {
+    content: ' ← that’s me!';
+    margin-left: 1rem;
+    font-size: smaller;
+}
+
+.user .data {
+    flex-grow: 1;
+}
+
+.user .controls {
+    flex-grow: 0;
+    margin-left: 0.5rem;
+}
+
+.user img {
+    max-width: 4rem;
+    max-height: 4rem;
+    border: 1px solid var(--text-border);
+    margin-right: 0.5rem;
+}
+
+.field {
+    margin: 0;
+    display: block;
+}
+
+ul {
+    padding-inline-start: 1em;
+}
+
+ul .key::after {
+    content: ': ';
+}
+
+form .error {
+    color: var(--error-fg);
+}
+
+.user .more {
+    display: none;
+}
+
+.user.open .more {
+    display: block;
+}
+
+.color-sample {
+    border: 1px solid var(--text-border);
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    vertical-align: middle;
+}
+
+#page {
+    display: grid;
+    grid-template-areas:
+        ". nav-home . nav-pages nav-login . "
+        ". header header header header ."
+        ". toc . main flashes flashes"
+        ". footer footer footer footer .";
+    grid-template-columns: 1fr minmax(15rem, max-content) 1rem minmax(30rem, 60rem) 16rem 1fr;
+
+    main,
+    header,
+    footer {
+        max-width: 100%;
+        position: relative;
+    }
+
+    main {
+        margin: .5rem auto;
+        margin-right: 16rem;
+        width: 100%;
+        grid-area: main;
+        padding: 1rem;
+
+        &>h1:first-of-type {
+            margin-top: 0;
+        }
+    }
+
+    #main-header {
+        grid-area: header;
+    }
+
+    #main-footer {
+        grid-area: footer;
+        margin: .5rem auto;
+
+        li {
+            font-size: smaller;
+            display: inline;
+            margin: 0 1em;
+        }
+    }
+
+    .flashes-container {
+        grid-area: flashes;
+        position: relative;
+    }
+
+    aside.sidebar {
+        width: 15rem;
+        margin-top: -1rem;
+        margin-right: calc(-16rem - 1rem);
+    }
+
+    @media (width < calc(65rem)) {
+
+        grid-template-columns: 0 minmax(10rem, 14rem) .25rem minmax(20rem, 40rem) 11rem 0;
+
+        main {
+            margin-right: 11rem;
+            padding: .5rem;
+        }
+
+        aside.sidebar {
+            width: 10rem;
+            margin-right: calc(-11rem - .5rem);
+            margin-top: -.5rem;
+        }
+
+        .toc {
+            font-size: smaller;
+        }
+    }
+
+    @media (width < calc(49rem)) {
+        display: block;
+
+        main {
+            margin-right: .5rem;
+            padding: .5rem;
+        }
+
+        aside.sidebar {
+            margin: .5rem;
+            position: static;
+            width: auto;
+        }
+    }
+
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+
+    &>* {
+        margin-block: .5rem;
+    }
+
+
+}
+
+main,
+aside,
+.toc {
+    border: 1px solid var(--text-bg-2-border);
+    background: var(--text-bg-2);
+    border-radius: 5px;
+    border: 1px solid var(--text-bg-2-border);
+    padding: .25rem;
+}
+
+nav.toc {
+    grid-area: toc;
+    position: sticky;
+    top: 1rem;
+    order: -1;
+    max-width: 100%;
+    text-align: left;
+    max-height: calc(100vh - 5rem);
+    overflow-y: auto;
+    margin-top: 3rem;
+    padding: .25rem 1rem;
+    text-indent: 1.25em hanging;
+    font-size: smaller;
+
+    &>* {
+        font-size: inherit;
+    }
+
+
+    h1,
+    h2 {
+        margin: 0.5rem 0 .25rem;
+        font-size: larger;
+        font-weight: normal;
+    }
+
+    a {
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+
+    .icon {
+        font-style: normal;
+    }
+
+    &>ul {
+        margin: 0.25rem 0 .5rem;
+        font-weight: normal;
+        padding: 0;
+        list-style-position: inside;
+
+        ul {
+            margin: 0.15rem 0 .25rem;
+
+            font-style: italic;
+        }
+    }
+
+    li:hover {
+        background-color: var(--text-bg-2-border);
+    }
+}
+
+aside.sidebar {
+    &:empty {
+        display: none;
+    }
+
+    float: right;
+    //position:absolute;
+    //left:100%;
+    background-color: var(--side-bg);
+    border-radius: 5px;
+    border: 1px solid var(--text-bg-2-border);
+    padding: .25rem;
+
+    pre {
+        max-width: 20rem;
+        max-height: 50vh;
+        overflow-y: scroll;
+        white-space: pre-wrap;
+    }
+}
+
+header {
+    background: var(--color-3);
+    min-height: 2.25rem;
+    --text-fg: #fff;
+    color: var(--text-fg);
+    padding: 1rem;
+
+    &,
+    &>nav,
+    &>nav>ul {
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-column: 1 / -1;
+        grid-row: 1;
+    }
+
+    a:any-link:not(:hover) {
+        text-decoration: none;
+    }
+
+    a:any-link,
+    a:any-link:hover {
+        color: var(--text-fg);
+    }
+
+    @media (width < calc(49rem)) {
+        padding: 0.25rem;
+
+        &,
+        &>nav {
+            display: block;
+            justify-content: stretch;
+        }
+
+        &>nav>ul {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+
+    #nav-home {
+        grid-area: nav-home;
+        text-align: left;
+    }
+
+    #nav-mid {
+        grid-area: nav-pages;
+        text-align: center;
+        grid-row: 1;
+    }
+
+    #nav-login {
+        grid-area: nav-login;
+        text-align: right;
+    }
+
+    li,
+    h1 {
+        font-size: medium;
+        margin: 0 1rem;
+
+        @media (width < calc(49rem)) {
+            margin: 0 .25rem;
+        }
+
+        display: block;
+
+        ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 0 auto;
+        }
+    }
+
+    #page-home {
+        text-align: left;
+        //background: var(--color-1);
+        min-width: 25%;
+        flex-grow: 1;
+
+        a {
+            color: inherit !important;
+            text-decoration: none !important;
+            ;
+        }
+
+        .logo {
+            font-variant: small-caps;
+            margin-right: 2rem;
+            background: transparent;
+        }
+
+        display: flex;
+        flex-direction: row;
+        justify-content: normal;
+        align-items: center;
+    }
+
+    h1 {
+        margin: 0;
+        text-align: center;
+        //background: var(--color-2);
+        min-width: 33%;
+
+        // * {
+        //     vertical-align: middle;
+        // }
+    }
+
+    #user-info {
+        flex-grow: 1;
+        text-align: right;
+        //background: var(--color-3);
+        min-width: 25%;
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        align-items: center;
+
+        * {
+            vertical-align: middle;
+        }
+    }
+
+    #user-info .is-admin::before {
+        content: "👩‍💻";
+    }
+
+    #user-info .name[title="teacher"]::after {
+        content: " 🧑‍🏫";
+    }
+
+    #user-info .account-status {
+        display: none;
+
+        &>[data-account] {
+            display: inline;
+
+            &[data-is-active]::before {
+                content: attr(data-account-short);
+            }
+        }
+
+        &:hover>[data-account] {
+            display: block;
+
+            &::before {
+                content: "❌"
+            }
+
+            &[data-is-active]::before {
+                content: "✔️"
+            }
+
+            &::after {
+                content: attr(data-account-name);
+            }
+        }
+    }
+
+    //data-account="canvas" data-account-name="Canvas" data-is-active=${self.canvas_account
+}
+
+
+.flashes {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    //border: 1px solid black;
+    z-index: 999;
+    right: 0%;
+    margin: 1rem;
+    margin-top: 0;
+    padding: .25rem;
+    overflow: clip;
+    opacity: 100%;
+
+
+    &#flash-log {
+        opacity: 10%;
+    }
+
+    // TODO: 
+    .flash {
+        margin: .25rem;
+        transform-origin: top;
+        transition-duration: 2s;
+        transition-delay: 0s;
+        transition-timing-function: ease-in;
+        transition-property: all;
+
+        @media(prefers-reduced-motion) {
+            transition-duration: 0s;
+        }
+
+        display: flow-root;
+        overflow: hidden;
+        position: relative;
+        min-width: 10em;
+        max-height: fit-content;
+        /* TODO: needed? */
+        width: auto;
+        color: #111;
+        padding: .5rem;
+        padding-top: .5rem;
+        padding-left: .5rem;
+        background:var(--text-bg);
+        box-shadow: var(--text-bg) 0px 0px 5px;
+        border-radius: .5rem;
+
+        right: 0%;
+
+        &[data-stage="fade"] {
+            opacity: 75%;
+        }
+
+        &[data-stage="keep"],
+        &[data-stage="show"] {
+            opacity: 100%;
+            right: 0%;
+        }
+
+
+        .flash-inner {
+            position: relative;
+            transition: 1s all;
+            background: white;
+            border: .25rem solid white;
+            border-radius: .5rem;
+            padding: .5rem;
+        }
+
+        button {
+            position: absolute;
+            top: -.75rem;
+            left: -.75rem;
+            border: 3px solid black;
+            border-radius: 100%;
+            font-size: 10px;
+            width: 1rem;
+            height: 1rem;
+            line-height: 1rem;
+            padding: 0;
+            text-align: center;
+            box-sizing: content-box;
+        }
+
+        &.info .flash-inner,
+        &.info button {
+            background-color: #{color.scale(blue, $lightness:95%)};
+            border-color: #{color.scale(blue, $lightness:10%)};
+        }
+
+        &.message .flash-inner,
+        &.message button {
+            background-color: #{color.scale(green, $lightness:95%)};
+            border-color: #{color.scale(green, $lightness:10%)};
+        }
+
+        &.warning {
+
+            .flash-inner,
+            button {
+                background-color: #{color.scale(orange, $lightness:95%)};
+                border-color: #{color.scale(orange, $lightness:10%)};
+            }
+
+            .flash-inner {
+                border-style: dotted;
+            }
+        }
+
+        &.error {
+
+            .flash-inner,
+            button {
+                background-color: #{color.scale(red, $lightness:95%)};
+                border-color: #{color.scale(red, $lightness:10%)};
+            }
+
+            .flash-inner {
+                border-style: dashed;
+            }
+        }
+
+
+        &[data-stage="hide"] {
+            opacity: 0%;
+            z-index: 998;
+        }
+
+        &[data-stage="remove"] {
+            opacity: 0%;
+            z-index: 998;
+            right: 100%;
+            max-height: 0px !important;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding: 0;
+        }
+
+        &[data-stage="removed"] {
+            display: none;
+            ;
+        }
+
+        @media(prefers-reduced-motion: no-preference) {
+
+            &[data-stage="hide"],
+            &[data-stage="remove"] {
+                margin-top: 0;
+                margin-bottom: 0;
+                padding: 0;
+
+                &:not(:last-child) {
+                    max-height: 0px !important;
+                }
+
+                right: -100%;
+            }
+
+        }
+    }
+}
+
+.flashes.left {
+    left: 0%;
+
+    .flash {
+        left: 0%;
+    }
+
+    .flash.remove {
+        left: -100%;
+    }
+}
+
+
+a:link.external,
+a:link[target="_blank"] {
+    position: relative;
+}
+
+:any-link,
+a:link {
+    color: var(--text-fg-link);
+    text-decoration: underline;
+}
+
+:any-link:hover,
+summary:hover {
+    color: var(--text-fg-link-hover);
+    cursor: grab;
+}
+
+a.external,
+a[target="_blank"],
+a[download] {
+    color: var(--text-fg-link);
+}
+
+:visited,
+a:visited.external a[target="_blank"]:visited,
+a[download]:visited {
+    color: var(--text-fg-visited)
+}
+
+/*
+a:link.external::after,
+a:link[target="_blank"]::after {
+    background-image: url(../img/arrow-up-right-square.svg);
+    background-size: 50%;
+    background-repeat: no-repeat;
+    content: "  ";
+    width: 1em;
+    height: 1em;
+    position: absolute;
+}
+*/
+input:invalid {
+    border-color: var(--error-fg)
+}
+
+a.button:any-link {
+    text-decoration: none;
+    ;
+}
+
+button.big-button,
+a.big-button,
+.big-button {
+    height: 2.5rem;
+    padding: 3px 6px;
+    margin: .25rem;
+    text-align: center;
+    min-width: 5rem;
+}
+
+button,
+a.button {
+    color: var(--text-fg);
+    border: .125rem outset var(--color-2);
+    border-radius: .25rem;
+    background-color: var(--color-2-light);
+
+    .buttons & {
+        border: .125rem outset var(--color-2);
+        border-radius: .25rem;
+    }
+
+    &:disabled {
+        border-style: solid;
+        background-color: var(--color-2-light-desat);
+        border-color: var(--color-2-desat);
+    }
+}
+
+button:hover:not(:disabled),
+button:active:not(:disabled),
+a.button:hover,
+a.button:active {
+    border-color: var(--color-1);
+    background-color: var(--color-1-light);
+    border-style: outset;
+}
+
+button:hover:disabled {
+    border-color: var(--color-2-light-desat);
+}
+
+button:active:not(:disabled) {
+    border-style: inset;
+}
+
+button.running {
+    border-style: solid !important;
+    border-color: var(--color-1-light);
+    cursor: wait;
+}
+
+
+h1 {
+    font-variant: small-caps;
+    font-weight: normal;
+    margin-block-start: .75rem;
+}
+
+div.login {
+    .form-field {
+        text-align: right;
+        margin: .5rem;
+    }
+
+    label {
+        min-width: 6em;
+    }
+
+    display:grid;
+    grid-template-columns: max-content;
+    justify-content: center;
+    align-items: stretch;
+
+    fieldset {
+        display: flex;
+        flex-direction: column;
+    }
+
+    button,
+    input[type=submit] {
+        min-height: 2.5rem;
+        padding: 3px 6px;
+        font-size: large;
+        display: block;
+        margin: .5rem;
+    }
+}
